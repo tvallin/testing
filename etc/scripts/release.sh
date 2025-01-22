@@ -175,7 +175,7 @@ create_tag() {
 create_cli_tag() {
   local git_branch version cli_tag
 
-  version=$(release_version)
+  version="1.0.0"
   cli_tag="cli/${version}"
   git_branch="release/${cli_tag}"
 
