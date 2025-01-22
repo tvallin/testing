@@ -46,6 +46,8 @@ jobs:
   create-cli-tag:
     runs-on: ubuntu-20.04
     environment: release
+    permissions:
+      contents: write
     outputs:
       tag: ${{ steps.create-cli-tag.outputs.tag }}
     steps:
