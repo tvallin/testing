@@ -190,8 +190,8 @@ create_cli_tag() {
   git config user.email || git config --global user.email "info@helidon.io"
   git config user.name || git config --global user.name "Helidon Robot"
 
-  # Commit version changes
-  git commit -a -m "Release ${cli_tag}"
+  # Commit version changes (no need because no version update)
+#  git commit -a -m "Release ${cli_tag}"
 
   # Create and push a git tag
   git tag -f "${cli_tag}"
