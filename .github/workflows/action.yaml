@@ -44,6 +44,7 @@ concurrency:
 
 jobs:
   create-cli-tag:
+    if: ${{ startsWith(github.ref_name, 'release-cli') }}
     runs-on: ubuntu-20.04
     environment: release
     permissions:
