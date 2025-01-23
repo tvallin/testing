@@ -62,3 +62,21 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
       - id: create-cli-tag
         run: ./etc/scripts/release.sh create_cli_tag >> "${GITHUB_OUTPUT}"
+  create-tag:
+    runs-on: ubuntu-20.04
+    environment: release
+    permissions:
+      contents: write
+    outputs:
+      tag: ${{ steps.create-tag.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+      - name: Set up JDK
+        uses: actions/setup-java@v4.1.0
+        with:
+          distribution: ${{ env.JAVA_DISTRO }}
+          java-version: ${{ env.JAVA_VERSION }}
+      - id: create-cli-tag
+        run: ./etc/scripts/release.sh create_tag >> "${GITHUB_OUTPUT}"

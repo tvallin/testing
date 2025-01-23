@@ -146,36 +146,37 @@ update_version(){
 }
 
 create_tag() {
-    local git_branch version
+    local git_branch version cli_tag
 
-    version=$(release_version)
-    git_branch="release/${version}"
+    version="1.1.0"
+    cli_tag="${version}"
+    git_branch="release/${cli_tag}"
 
     # Use a separate branch
     git branch -D "${git_branch}" > /dev/null 2>&1 || true
     git checkout -b "${git_branch}"
 
     # Invoke update_version
-    update_version "${version}"
+  #  update_version "${version}"
 
     # Git user info
     git config user.email || git config --global user.email "info@helidon.io"
     git config user.name || git config --global user.name "Helidon Robot"
 
-    # Commit version changes
-    git commit -a -m "Release ${version}"
+    # Commit version changes (no need because no version update)
+  #  git commit -a -m "Release ${cli_tag}"
 
     # Create and push a git tag
-    git tag -f "${version}"
-    git push --force origin refs/tags/"${version}":refs/tags/"${version}"
+    git tag -f "${cli_tag}"
+    git push --force origin refs/tags/"${cli_tag}":refs/tags/"${cli_tag}"
 
-    echo "tag=refs/tags/${version}" >&6
+    echo "tag=refs/tags/${cli_tag}" >&6
 }
 
 create_cli_tag() {
   local git_branch version cli_tag
 
-  version="1.0.0"
+  version="1.1.0"
   cli_tag="cli/${version}"
   git_branch="release/${cli_tag}"
 
