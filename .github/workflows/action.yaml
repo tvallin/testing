@@ -43,22 +43,16 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  create-cli-tag:
-    if: ${{ startsWith(github.ref_name, 'release-cli') }}
+  failing-job:
     runs-on: ubuntu-20.04
-    environment: release
-    permissions:
-      contents: write
-    outputs:
-      tag: ${{ steps.create-cli-tag.outputs.tag }}
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.ref }}
-      - name: Set up JDK
-        uses: actions/setup-java@v4.1.0
-        with:
-          distribution: ${{ env.JAVA_DISTRO }}
-          java-version: ${{ env.JAVA_VERSION }}
-      - id: create-cli-tag
-        run: ./etc/scripts/release.sh create_cli_tag >> "${GITHUB_OUTPUT}"
+      - name: failure
+        continue-on-error: true
+        run: exit 1
+  echo-job:
+    runs-on: ubuntu-20.04
+    needs: failing-job
+    steps:
+      - name: Echo
+        run: echo "success"
+
