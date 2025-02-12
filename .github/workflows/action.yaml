@@ -20,6 +20,7 @@ on:
   push:
     branches:
       - 'release-*'
+      - 'main'
   workflow_call:
     inputs:
       ref:
